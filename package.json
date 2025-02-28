@@ -1,5 +1,5 @@
 {
-  "name": "twilight-breeze-99ef",
+  "name": "ielts-writing",
   "description": "Build a full-stack web application with Next.js.",
   "cloudflare": {
     "label": "Next.js Framework Starter",
@@ -13,6 +13,10 @@
     "preview_image_url": "https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/e42eec61-db86-49c8-7b29-c3ed4783e400/public"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@google/generative-ai": "^0.22.0",
+    "@mui/material": "^6.4.6",
     "next": "14.2.23",
     "react": "18.3.1",
     "react-dom": "18.3.1"
