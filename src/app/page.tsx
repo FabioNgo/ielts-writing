@@ -5,6 +5,8 @@ import { useState } from "react";
 import { UserInput } from "@/components/UserInput";
 import { ResponseFormat } from "@/app/api/ielts/writing/route";
 import { Result } from "@/components/Result";
+import React from "react";
+
 async function submit(
   target: number,
   topic: string,

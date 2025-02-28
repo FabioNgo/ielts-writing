@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import { ResponseFormat } from "@/app/api/ielts/writing/route";
+import React from "react";
 
 function Breakdown({
   suggestions,

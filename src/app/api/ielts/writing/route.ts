@@ -35,6 +35,7 @@ export type ResponseFormat = {
     }[];
   };
 };
+
 async function askAi(data: RequestBody) {
   const exampleResponse: ResponseFormat = {
     overallFeedback:
@@ -89,14 +90,15 @@ async function askAi(data: RequestBody) {
   return await askGemini(prompt);
 }
 
-async function doPost(req: NextRequest) {
-  const data: RequestBody = await req.json();
-  if (data?.target && data?.topic && data?.work) {
-    const answer = await askAi(data);
-    const responseData: ResponseData = {
-      answer: answer ?? "",
-    };
-    return NextResponse.json(
+export async function POST(req: NextRequest) {
+  try {
+    const data: RequestBody = await req.json();
+    if (data?.target && data?.topic && data?.work) {
+      const answer = await askAi(data);
+      const responseData: ResponseData = {
+        answer: answer ?? "",
+      };
+      return NextResponse.json(
         {
           success: true,
           data: responseData,
@@ -104,19 +106,25 @@ async function doPost(req: NextRequest) {
         {
           status: 200,
         },
-    );
-  } else {
-    return NextResponse.json(
+      );
+    } else {
+      return NextResponse.json(
         {
           error: "Missing required fields: target, topic, work",
         },
         {
           status: 400,
         },
+      );
+    }
+  } catch (e: any) {
+    return NextResponse.json(
+      {
+        error: e.message,
+      },
+      {
+        status: 500,
+      },
     );
   }
-}
-
-export async function POST(req: NextRequest) {
-  return doPost(req);
 }

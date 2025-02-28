@@ -1,4 +1,5 @@
 import { MenuItem, Select as MUISelect } from "@mui/material";
+import React from "react";
 
 export type SelectProps = {
   label: string;
