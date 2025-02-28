@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { askGemini } from "@/utils/ai";
 import { RequestBody, ResponseData } from "@/app/api/ielts/writing/type";
-export const runtime = "edge";
 
 export type ResponseFormat = {
   overallFeedback: string;
