@@ -90,7 +90,7 @@ async function askAi(data: RequestBody) {
   return await askGemini(prompt);
 }
 
-export async function POST(req: NextRequest) {
+async function doPost(req: NextRequest) {
   const data: RequestBody = await req.json();
   if (data?.target && data?.topic && data?.work) {
     const answer = await askAi(data);
@@ -98,22 +98,26 @@ export async function POST(req: NextRequest) {
       answer: answer ?? "",
     };
     return NextResponse.json(
-      {
-        success: true,
-        data: responseData,
-      },
-      {
-        status: 200,
-      },
+        {
+          success: true,
+          data: responseData,
+        },
+        {
+          status: 200,
+        },
     );
   } else {
     return NextResponse.json(
-      {
-        error: "Missing required fields: target, topic, work",
-      },
-      {
-        status: 400,
-      },
+        {
+          error: "Missing required fields: target, topic, work",
+        },
+        {
+          status: 400,
+        },
     );
   }
+}
+
+export async function POST(req: NextRequest) {
+  return doPost(req);
 }
