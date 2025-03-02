@@ -1,5 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 
+const BASED_FONT_SIZE = 14;
+
 const myTheme = createTheme({
   palette: {
     primary: {
@@ -37,12 +39,71 @@ const myTheme = createTheme({
   },
   typography: {
     fontFamily: ["Roboto", "sans-serif"].join(","),
-    fontSize: 14,
-    h1: {
-      fontSize: "3rem",
+    fontSize: BASED_FONT_SIZE,
+    caption: {
+      fontSize: 12,
+      lineHeight: 16,
+      letterSpacing: 0.4,
+    },
+    body2: {
+      fontSize: 14,
+      lineHeight: 20,
+      letterSpacing: 0.25,
+    },
+    body1: {
+      fontSize: 16,
+      lineHeight: 24,
+      letterSpacing: 0.5,
+    },
+    overline: {
+      fontSize: 11,
+      lineHeight: 16,
+      letterSpacing: 0.5,
+      fontWeight: 500,
+    },
+    button: {
+      fontSize: 14,
+      lineHeight: 20,
+      letterSpacing: 0.1,
+      fontWeight: 500,
+    },
+    subtitle2: {
+      fontSize: 14,
+      lineHeight: 20,
+      letterSpacing: 0.1,
+      fontWeight: 500,
+    },
+    subtitle1: {
+      fontSize: 16,
+      lineHeight: 24,
+      letterSpacing: 0.15,
+      fontWeight: 500,
+    },
+    h6: {
+      fontSize: 22,
+      lineHeight: 28,
+      letterSpacing: 0,
+    },
+    h5: {
+      fontSize: 24,
+      lineHeight: 32,
+    },
+    h4: {
+      fontSize: 28,
+      lineHeight: 36,
+    },
+    h3: {
+      fontSize: 36,
+      lineHeight: 44,
     },
     h2: {
-      fontSize: "2.5rem",
+      fontSize: 45,
+      lineHeight: 52,
+    },
+    h1: {
+      fontSize: 57,
+      lineHeight: 64,
+      letterSpacing: -0.25,
     },
   },
   spacing: 8, // Default spacing unit in rem

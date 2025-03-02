@@ -1,6 +1,8 @@
 import type { StorybookConfig } from "@storybook/react-vite";
+import { withThemeProvider } from "./themeDecorator";
 
 const config: StorybookConfig = {
+  decorators: [withThemeProvider],
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     "@storybook/addon-essentials",
