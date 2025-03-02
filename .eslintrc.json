@@ -9,7 +9,12 @@
     "next/core-web-vitals",
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:storybook/recommended",
+    "plugin:storybook/recommended",
+    "plugin:storybook/recommended",
+    "plugin:storybook/recommended",
+    "plugin:storybook/recommended"
   ],
   "plugins": [
     "react",
@@ -17,7 +22,12 @@
   ],
   "rules": {
     "prettier/prettier": "error",
-    "no-unused-vars": ["error", { "argsIgnorePattern": "..." }]
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "..."
+      }
+    ]
   },
   "parserOptions": {
     "ecmaFeatures": {
