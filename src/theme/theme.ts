@@ -1,5 +1,5 @@
 import { IThemeOptions } from "@mui/material/styles";
-import { createTheme, ThemeOptions } from "@mui/material";
+import { createTheme, css, CustomTheme, ThemeOptions } from "@mui/material";
 import { FontStyleOptions } from "@mui/material/styles/createTypography";
 import {
   argbFromHex,
@@ -86,22 +86,29 @@ declare module "@mui/material/styles" {
     scrim: string;
     shadow: string;
   };
+  type IFontStylesOptions = FontStyleOptions & {
+    fontSize: number;
+    lineHeight: number;
+    letterSpacing: number;
+    fontWeight: number;
+  };
+
   type ITypography = ThemeOptions["typography"] & {
-    bodySmall: FontStyleOptions;
-    bodyMedium: FontStyleOptions;
-    bodyLarge: FontStyleOptions;
-    labelSmall: FontStyleOptions;
-    labelMedium: FontStyleOptions;
-    labelLarge: FontStyleOptions;
-    titleSmall: FontStyleOptions;
-    titleMedium: FontStyleOptions;
-    titleLarge: FontStyleOptions;
-    headlineSmall: FontStyleOptions;
-    headlineMedium: FontStyleOptions;
-    headlineLarge: FontStyleOptions;
-    displaySmall: FontStyleOptions;
-    displayMedium: FontStyleOptions;
-    displayLarge: FontStyleOptions;
+    bodySmall: IFontStylesOptions;
+    bodyMedium: IFontStylesOptions;
+    bodyLarge: IFontStylesOptions;
+    labelSmall: IFontStylesOptions;
+    labelMedium: IFontStylesOptions;
+    labelLarge: IFontStylesOptions;
+    titleSmall: IFontStylesOptions;
+    titleMedium: IFontStylesOptions;
+    titleLarge: IFontStylesOptions;
+    headlineSmall: IFontStylesOptions;
+    headlineMedium: IFontStylesOptions;
+    headlineLarge: IFontStylesOptions;
+    displaySmall: IFontStylesOptions;
+    displayMedium: IFontStylesOptions;
+    displayLarge: IFontStylesOptions;
   };
 
   interface IThemeOptions extends ThemeOptions {
@@ -286,31 +293,37 @@ const createCustomTheme = (mode: "dark" | "light") => {
         fontSize: 12,
         lineHeight: 16,
         letterSpacing: 0.4,
+        fontWeight: 400,
       },
       caption: {
         fontSize: 12,
         lineHeight: 16,
         letterSpacing: 0.4,
+        fontWeight: 400,
       },
       bodyMedium: {
         fontSize: 14,
         lineHeight: 20,
         letterSpacing: 0.25,
+        fontWeight: 400,
       },
       body2: {
         fontSize: 14,
         lineHeight: 20,
         letterSpacing: 0.25,
+        fontWeight: 400,
       },
       bodyLarge: {
         fontSize: 16,
         lineHeight: 24,
         letterSpacing: 0.5,
+        fontWeight: 400,
       },
       body1: {
         fontSize: 16,
         lineHeight: 24,
         letterSpacing: 0.5,
+        fontWeight: 400,
       },
       labelSmall: {
         fontSize: 11,
@@ -328,6 +341,7 @@ const createCustomTheme = (mode: "dark" | "light") => {
         fontSize: 12,
         lineHeight: 16,
         letterSpacing: 0.5,
+        fontWeight: 400,
       },
       labelLarge: {
         fontSize: 14,
@@ -369,57 +383,70 @@ const createCustomTheme = (mode: "dark" | "light") => {
         fontSize: 22,
         lineHeight: 28,
         letterSpacing: 0,
+        fontWeight: 400,
       },
       h6: {
         fontSize: 22,
         lineHeight: 28,
         letterSpacing: 0,
+        fontWeight: 400,
       },
       headlineSmall: {
         fontSize: 24,
         lineHeight: 32,
+        fontWeight: 400,
       },
       h5: {
         fontSize: 24,
         lineHeight: 32,
+        fontWeight: 400,
       },
       headlineMedium: {
         fontSize: 28,
         lineHeight: 36,
+        fontWeight: 400,
       },
       h4: {
         fontSize: 28,
         lineHeight: 36,
+        fontWeight: 400,
       },
       headlineLarge: {
         fontSize: 32,
         lineHeight: 40,
+        fontWeight: 400,
       },
       displaySmall: {
         fontSize: 36,
         lineHeight: 44,
+        fontWeight: 400,
       },
       h3: {
         fontSize: 36,
         lineHeight: 44,
+        fontWeight: 400,
       },
       displayMedium: {
         fontSize: 45,
         lineHeight: 52,
+        fontWeight: 400,
       },
       h2: {
         fontSize: 45,
         lineHeight: 52,
+        fontWeight: 400,
       },
       displayLarge: {
         fontSize: 57,
         lineHeight: 64,
         letterSpacing: -0.25,
+        fontWeight: 400,
       },
       h1: {
         fontSize: 57,
         lineHeight: 64,
         letterSpacing: -0.25,
+        fontWeight: 400,
       },
     },
     spacing: 8, // Default spacing unit in rem
@@ -441,15 +468,30 @@ const createCustomTheme = (mode: "dark" | "light") => {
 export const lightTheme = createCustomTheme("light");
 export const darkTheme = createCustomTheme("dark");
 export const defaultTheme = createTheme();
+let theme: CustomTheme = lightTheme;
+export { theme };
 export function useTheme() {
   const [mode, setMode] = useState<"dark" | "light">("light");
 
-  const theme = useMemo(() => {
-    return createCustomTheme(mode);
+  const newTheme = useMemo(() => {
+    const customTheme = createCustomTheme(mode);
+    theme = customTheme;
+    return customTheme;
   }, [mode]);
   return {
-    theme: theme,
+    theme: newTheme,
     setMode,
     mode,
   };
+}
+
+export function getTypoStyle(typo: keyof CustomTheme["typography"]) {
+  const { typography } = theme;
+  const style = typography[typo];
+  return css`
+    font-size: ${style.fontSize}px;
+    font-weight: ${style.fontWeight};
+    line-height: ${style.lineHeight};
+    letter-spacing: ${style.letterSpacing}px;
+  `;
 }
