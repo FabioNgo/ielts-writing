@@ -1,19 +1,17 @@
 import { IThemeOptions } from "@mui/material/styles";
-import { createTheme, Theme, ThemeOptions } from "@mui/material";
+import { createTheme, ThemeOptions } from "@mui/material";
 import { FontStyleOptions } from "@mui/material/styles/createTypography";
 import {
-  TonalPalette,
   argbFromHex,
+  Hct,
   hexFromArgb,
 } from "@material/material-color-utilities";
 import { useMemo, useState } from "react";
 
 const BASED_FONT_SIZE = 14;
 
-function getTonalColor(baseColor: string, tonalLevel: number): string {
-  return hexFromArgb(
-    TonalPalette.fromInt(argbFromHex(baseColor)).tone(tonalLevel),
-  );
+function getTonalColor(hct: Hct, tonalLevel: number): string {
+  return hexFromArgb(Hct.from(hct.hue, hct.chroma, tonalLevel).toInt());
 }
 
 declare module "@mui/material/styles" {
@@ -115,15 +113,20 @@ declare module "@mui/material/styles" {
     };
   }
 
-  export function createTheme(options: IThemeOptions): Theme;
-}
+  interface CustomTheme {
+    palette: IPalette;
+    typography: ITypography;
+  }
 
-const PRIMARY_COLOR = "#63A002";
-const SECONDARY_COLOR = "#85976E";
-const TERTIARY_COLOR = "#4D9D98";
-const ERROR_COLOR = "#FF5449";
-const NEUTRAL_COLOR = "#91918B";
-const NEUTRAL_VARIANT_COLOR = "#8F9285";
+  export function createTheme(options: IThemeOptions): CustomTheme;
+}
+const SOURCE_COLOR = Hct.fromInt(argbFromHex("#63A002"));
+const PRIMARY_COLOR = Hct.from(SOURCE_COLOR.hue, 48, 60);
+const SECONDARY_COLOR = Hct.from(SOURCE_COLOR.hue, 16, 60);
+const TERTIARY_COLOR = Hct.from(SOURCE_COLOR.hue + 60, 24, 60);
+const ERROR_COLOR = Hct.from(25, 81, 60);
+const NEUTRAL_COLOR = Hct.from(SOURCE_COLOR.hue, 4, 60);
+const NEUTRAL_VARIANT_COLOR = Hct.from(SOURCE_COLOR.hue, 8, 60);
 
 export const lightPalette: NonNullable<IThemeOptions["palette"]> = {
   primary: {
@@ -438,5 +441,6 @@ export function useTheme() {
   return {
     theme: theme,
     setMode,
+    mode,
   };
 }
