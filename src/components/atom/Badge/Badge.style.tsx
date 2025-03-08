@@ -5,6 +5,7 @@ export const StyledBadge = styled(Badge)`
     width: 6px;
     height: 6px;
     min-width: 6px;
+    background-color: ${theme.palette.error.main};
   }
   & .MuiBadge-standard {
     min-width: 16px;
